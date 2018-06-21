@@ -41,6 +41,7 @@
 				<tr>
 					<th>Menu Label</th>
 					<th>Menu Url</th>
+					<th>Parent Menu</th>
 					<th>Action</th>
 				</tr>
 			</thead>		
@@ -49,6 +50,7 @@
 				<tr>
 					<td><?php echo $menu->menu_label; ?></td>
 					<td><?php echo $menu->menu_url; ?></td>
+					<td><?php echo $menu->parent_menu_label; ?></td>
 					<td><a href="<?php echo base_url('auth/edit_menu/'.$menu->ser_id); ?>" class="btn btn-secondary btn-sm btn-icon icon-left">Edit</a>
 					<a href="<?php echo base_url().'auth/delete_menu/'.$menu->ser_id; ?>" class="btn btn-danger btn-sm btn-icon icon-left" title="Delete" onclick="return menu_delete()">Delete</a></td>
 				</tr>

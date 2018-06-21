@@ -13,9 +13,11 @@ class Auth_model extends CI_Model
     }
 
     public function list_menu() {
-		$this->db->select('a.*');
+		$this->db->select('a.*, b.menu_label as parent_menu_label');
 		$this->db->from('tbl_menu a');
-		$this->db->order_by('a.ser_id', 'DESC');
+		$this->db->join('tbl_menu b', 'b.ser_id=a.parent_menu', 'left');
+		$this->db->group_by('a.ser_id');
+		$this->db->order_by('a.ser_id', 'desc');
 		$data = $this->db->get();
 		return $data->result();
 	}
