@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 21, 2018 at 07:36 AM
+-- Generation Time: Jul 10, 2018 at 01:51 PM
 -- Server version: 10.1.31-MariaDB
 -- PHP Version: 7.2.4
 
@@ -46,7 +46,8 @@ TRUNCATE TABLE `aauth_groups`;
 
 INSERT INTO `aauth_groups` (`id`, `name`, `definition`) VALUES
 (1, 'Super Admin', 'Super admin'),
-(2, 'Admin', NULL);
+(2, 'Admin', NULL),
+(3, 'Member', '');
 
 -- --------------------------------------------------------
 
@@ -281,7 +282,7 @@ TRUNCATE TABLE `tbl_login`;
 --
 
 INSERT INTO `tbl_login` (`login_id`, `password`, `status`, `change_pass_status`, `created_on`, `last_login`, `tbl_user_user_id`) VALUES
-(1, '40be4e59b9a2a2b5dffb918c0e86b3d7', 1, 1, '2018-06-21 05:05:28', '2018-06-21 01:32:11', 'super_admin');
+(1, '40be4e59b9a2a2b5dffb918c0e86b3d7', 1, 1, '2018-06-21 05:05:28', '2018-07-10 05:42:18', 'super_admin');
 
 -- --------------------------------------------------------
 
@@ -295,7 +296,7 @@ CREATE TABLE `tbl_menu` (
   `menu_label` varchar(40) COLLATE utf8_unicode_ci NOT NULL,
   `menu_url` varchar(250) COLLATE utf8_unicode_ci DEFAULT NULL,
   `menu_icon` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `parent_menu` int(8) DEFAULT NULL,
+  `parent_menu` int(8) NOT NULL DEFAULT '0',
   `menu_level` int(6) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -309,11 +310,15 @@ TRUNCATE TABLE `tbl_menu`;
 --
 
 INSERT INTO `tbl_menu` (`ser_id`, `menu_label`, `menu_url`, `menu_icon`, `parent_menu`, `menu_level`) VALUES
-(2, 'Admin Console', NULL, 'fa-cog', NULL, 10),
+(2, 'Admin Console', NULL, 'fa-cog', 0, 10),
 (3, 'Group', 'auth/group', NULL, 2, 3),
 (6, 'Menu', 'auth/menu', NULL, 2, 0),
 (8, 'Permission', 'auth/permission', NULL, 2, 0),
-(21, 'Home', 'home', 'fa-home', NULL, 0);
+(21, 'Home', 'home', 'fa-home', 0, 0),
+(22, 'Employee', NULL, 'fa-user', 0, 0),
+(23, 'Manage Employee', NULL, NULL, 22, 0),
+(24, 'Admin', NULL, NULL, 23, 0),
+(25, 'Subscriber', NULL, NULL, 23, 0);
 
 -- --------------------------------------------------------
 
@@ -480,7 +485,7 @@ ALTER TABLE `tbl_user`
 -- AUTO_INCREMENT for table `aauth_groups`
 --
 ALTER TABLE `aauth_groups`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `aauth_login_attempts`
@@ -528,7 +533,7 @@ ALTER TABLE `tbl_login`
 -- AUTO_INCREMENT for table `tbl_menu`
 --
 ALTER TABLE `tbl_menu`
-  MODIFY `ser_id` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `ser_id` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `tbl_menu_to_group`
@@ -539,12 +544,6 @@ ALTER TABLE `tbl_menu_to_group`
 --
 -- Constraints for dumped tables
 --
-
---
--- Constraints for table `tbl_menu`
---
-ALTER TABLE `tbl_menu`
-  ADD CONSTRAINT `fk_tbl_menu_parent_menu_id` FOREIGN KEY (`parent_menu`) REFERENCES `tbl_menu` (`ser_id`);
 
 --
 -- Constraints for table `tbl_menu_to_group`

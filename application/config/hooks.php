@@ -13,7 +13,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 */
 
 
-$hook['pre_controller'] = array(
+$hook['post_controller'] = array(
     'class' => 'Checkauth',
     'function' => 'is_loggedin',
     'filename' => 'Checkauth.php',

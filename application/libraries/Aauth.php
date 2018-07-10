@@ -2570,7 +2570,7 @@ class Aauth {
 		}
 	}
 
-	public function get_menu() {
+	public function get_menu1() {
 		$user_type = $this->CI->session->userdata('user_type_id');
 		$user = $this->CI->session->userdata('user_id');
 		$menu_res = '<ul class="main-menu" id="main-menu">';
@@ -2643,6 +2643,54 @@ class Aauth {
 		$menu_res .= '</ul>';
 		return $menu_res;
 	}
+
+	public function get_menu()
+	{
+		$user_type = $this->CI->session->userdata('user_type_id');
+		$user = $this->CI->session->userdata('user_id');
+
+		$this->CI->db->select('a.*');
+		$this->CI->db->from('tbl_menu a');
+		
+		$menu_items  = $this->CI->db->get()->result_array();
+		$menu_res = $this->html_ordered_menu($menu_items, 0);
+		return $menu_res;
+	}
+
+	function ordered_menu($array,$parent_id = 0)
+	{
+		$temp_array = array();
+		foreach($array as $element) {
+			if($element['parent_menu']==$parent_id) {
+				$element['subs'] = $this->ordered_menu($array,$element['ser_id']);
+				$temp_array[] = $element;
+			}
+		}
+		return $temp_array;
+	}
+
+	public function html_ordered_menu($array,$parent_id = 0)
+	{
+		$menu_html = '<ul class="main-menu" id="main-menu">';
+		foreach($array as $element) {
+			if($element['parent_menu']==$parent_id) {
+				$menu_html .= '<li class="';
+				/*if($element['parent_menu'] > 0) {
+					$menu_html .= ' has-sub';
+				}*/
+				$menu_html .='"><a href="'.base_url().$element['menu_url'].'">';
+				if($element['menu_icon']){
+					$menu_html .= '<i class="fa fa-2x '.$element['menu_icon'].'"></i>';
+				}
+				$menu_html .=$element['menu_label'].'='.$element['parent_menu'].'</a>';
+				$menu_html .= $this->html_ordered_menu($array,$element['ser_id']);
+				$menu_html .= '</li>';
+			}
+		}
+		$menu_html .= '</ul>';
+		return $menu_html;
+	}
+
 
 } // end class
 

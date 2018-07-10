@@ -21,5 +21,9 @@ class My_Controller extends CI_Controller
         if($this->session->userdata('change_pass_status') == 0) {
             redirect('change_password');
         }
+        /*echo $method = $this->router->fetch_class().'<br>';
+        $class_methods=get_class_methods($this);
+        //echo '<pre>';
+        print_r($class_methods);*/
     }
 }

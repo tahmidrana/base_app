@@ -12,18 +12,19 @@ class Checkauth
     public function __construct()
     {
         //session_start();
-        //$this->CI =& get_instance();
+        $this->CI =& get_instance();
     }
 
     public function is_loggedin()
     {
-
-        /*if($this->CI->session->userdata('loggedin') == 0) {
-            //redirect('/login');
-            echo 'Not loggedin';
-        }*/
-        /*echo '<pre>';
-        print_r($_SESSION);
-        die();*/
+        $class = $this->CI->router->fetch_class();
+        $method = $this->CI->router->fetch_method();
+        //echo $method;
+        $class_methods=get_class_methods($class);
+        if(!in_array('$method', $class_methods)){
+            //redirect(base_url().'access_denied');
+        } else {
+            echo 'Not found';
+        }
     }
 }

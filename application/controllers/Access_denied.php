@@ -6,7 +6,7 @@
  * Time: 11:34 AM
  */
 //include_once(APPPATH.'core/My_Controller.php');
-class Access_denied extends My_Controller
+class Access_denied extends CI_Controller
 {
     public function __construct()
     {

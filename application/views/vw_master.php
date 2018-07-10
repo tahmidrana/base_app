@@ -1,3 +1,6 @@
+<?php 
+/*echo '<pre>';
+print_r($this->aauth->get_menu()); die();*/ ?>
 <!doctype html>
 <html lang="en">
 <head>
