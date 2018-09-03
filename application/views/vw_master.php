@@ -184,7 +184,7 @@ print_r($this->aauth->get_menu()); die();*/ ?>
 
             </header>
 
-            <?php echo $this->aauth->get_menu(); ?>
+            <?php echo $this->aauth->get_menu1(); ?>
 
         </div>
 

@@ -15,7 +15,6 @@ class Home extends My_Controller
         parent::__construct();
         $this->session->set_userdata('main_menu', 'home');
         $this->load->model('config_model');
-        $this->load->model('home_model');
         //echo $method = $this->router->fetch_class();
         //echo $method = $this->router->fetch_method();
         

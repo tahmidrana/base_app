@@ -1,12 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.0
+-- version 4.8.2
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 10, 2018 at 01:51 PM
--- Server version: 10.1.31-MariaDB
--- PHP Version: 7.2.4
+-- Generation Time: Sep 03, 2018 at 07:45 AM
+-- Server version: 10.1.34-MariaDB
+-- PHP Version: 7.2.7
 
+SET FOREIGN_KEY_CHECKS=0;
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
 START TRANSACTION;
@@ -103,6 +104,13 @@ CREATE TABLE `aauth_perms` (
 --
 
 TRUNCATE TABLE `aauth_perms`;
+--
+-- Dumping data for table `aauth_perms`
+--
+
+INSERT INTO `aauth_perms` (`id`, `name`, `definition`) VALUES
+(1, 'create_blog', '');
+
 -- --------------------------------------------------------
 
 --
@@ -282,7 +290,7 @@ TRUNCATE TABLE `tbl_login`;
 --
 
 INSERT INTO `tbl_login` (`login_id`, `password`, `status`, `change_pass_status`, `created_on`, `last_login`, `tbl_user_user_id`) VALUES
-(1, '40be4e59b9a2a2b5dffb918c0e86b3d7', 1, 1, '2018-06-21 05:05:28', '2018-07-10 05:42:18', 'super_admin');
+(1, '40be4e59b9a2a2b5dffb918c0e86b3d7', 1, 1, '2018-06-21 05:05:28', '2018-09-03 01:21:41', 'super_admin');
 
 -- --------------------------------------------------------
 
@@ -296,7 +304,7 @@ CREATE TABLE `tbl_menu` (
   `menu_label` varchar(40) COLLATE utf8_unicode_ci NOT NULL,
   `menu_url` varchar(250) COLLATE utf8_unicode_ci DEFAULT NULL,
   `menu_icon` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `parent_menu` int(8) NOT NULL DEFAULT '0',
+  `parent_menu` int(8) DEFAULT NULL,
   `menu_level` int(6) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -310,13 +318,11 @@ TRUNCATE TABLE `tbl_menu`;
 --
 
 INSERT INTO `tbl_menu` (`ser_id`, `menu_label`, `menu_url`, `menu_icon`, `parent_menu`, `menu_level`) VALUES
-(2, 'Admin Console', NULL, 'fa-cog', 0, 10),
+(2, 'Admin Console', NULL, 'fa-cog', NULL, 10),
 (3, 'Group', 'auth/group', NULL, 2, 3),
 (6, 'Menu', 'auth/menu', NULL, 2, 0),
 (8, 'Permission', 'auth/permission', NULL, 2, 0),
-(21, 'Home', 'home', 'fa-home', 0, 0),
-(22, 'Employee', NULL, 'fa-user', 0, 0),
-(23, 'Manage Employee', NULL, NULL, 22, 0),
+(21, 'Home', 'home', 'fa-home', NULL, 0),
 (24, 'Admin', NULL, NULL, 23, 0),
 (25, 'Subscriber', NULL, NULL, 23, 0);
 
@@ -497,7 +503,7 @@ ALTER TABLE `aauth_login_attempts`
 -- AUTO_INCREMENT for table `aauth_perms`
 --
 ALTER TABLE `aauth_perms`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `aauth_pms`
@@ -551,6 +557,7 @@ ALTER TABLE `tbl_menu_to_group`
 ALTER TABLE `tbl_menu_to_group`
   ADD CONSTRAINT `fk_aauth_groups_id` FOREIGN KEY (`group_id`) REFERENCES `aauth_groups` (`id`),
   ADD CONSTRAINT `fk_tbl_menu_ser_id` FOREIGN KEY (`menu_id`) REFERENCES `tbl_menu` (`ser_id`);
+SET FOREIGN_KEY_CHECKS=1;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

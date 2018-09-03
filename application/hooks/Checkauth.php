@@ -6,7 +6,7 @@
  * Time: 12:33 PM
  */
 
-class Checkauth
+class Checkauth extends CI_Controller
 {
     private $CI;
     public function __construct()
@@ -19,12 +19,15 @@ class Checkauth
     {
         $class = $this->CI->router->fetch_class();
         $method = $this->CI->router->fetch_method();
+        $directory = $this->CI->router->fetch_directory();
+        $currentURL = current_url();
         //echo $method;
         $class_methods=get_class_methods($class);
-        if(!in_array('$method', $class_methods)){
+        print_r($directory);
+        /*if(!in_array('$method', $class_methods)){
             //redirect(base_url().'access_denied');
         } else {
             echo 'Not found';
-        }
+        }*/
     }
 }
